@@ -1,8 +1,7 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import { type } from 'os'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
 	return (
@@ -67,26 +66,7 @@ const Home: NextPage = () => {
 				</a>
 			</footer>
 		</div>
-	)
-}
+	);
+};
 
-export default Home
-
-
-
-const add = (a: number, b: number) => a + b
-
-add('', 2)
-
-
-interface UserProps {
-	id: number;
-	name: string
-}
-
-
-const props = { id: 1, name: "asd" }
-
-
-
-
+export default Home;
