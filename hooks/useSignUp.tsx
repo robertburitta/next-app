@@ -6,6 +6,7 @@ import { ref, set } from 'firebase/database';
 import { ResultHandler } from '../types/ResultHandler';
 import zod from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { User } from '../types/User';
 
 // interface Response<T> {
 // 	page: number;
@@ -26,7 +27,7 @@ const SignUpSchema = zod.object({
 
 type SignUpData = zod.infer<typeof SignUpSchema>;
 
-export const useSignUp = ({ onSuccess, onError }: ResultHandler<any>) => {
+export const useSignUp = ({ onSuccess, onError }: ResultHandler<User>) => {
 	const [isPending, setIsPending] = useState(false);
 	const { handleSubmit, ...form } = useForm<SignUpData>({ resolver: zodResolver(SignUpSchema) });
 
@@ -42,7 +43,13 @@ export const useSignUp = ({ onSuccess, onError }: ResultHandler<any>) => {
 				email
 			});
 
-			onSuccess?.('Zarejestrowano');
+			const user = {
+				firstName,
+				lastName,
+				email
+			};
+
+			onSuccess?.(user);
 			setIsPending(false);
 		} catch (err) {
 			onError?.(err as Error);

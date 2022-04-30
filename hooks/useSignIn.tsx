@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useForm } from 'react-hook-form';
-import { auth } from '../config/firebase';
 import { ResultHandler } from '../types/ResultHandler';
 import zod from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { User } from '../types/User';
+import { auth, db } from '../config/firebase';
+import { ref, get, child } from 'firebase/database';
+
 
 const SignInSchema = zod.object({
 	email: zod.string().email().nonempty(),
@@ -13,7 +16,7 @@ const SignInSchema = zod.object({
 
 type SignInData = zod.infer<typeof SignInSchema>;
 
-export const useSignIn = ({ onSuccess, onError }: ResultHandler<any>) => {
+export const useSignIn = ({ onSuccess, onError }: ResultHandler<User>) => {
 	const [isPending, setIsPending] = useState(false);
 	const { handleSubmit, ...form } = useForm<SignInData>({ resolver: zodResolver(SignInSchema) });
 
@@ -21,9 +24,11 @@ export const useSignIn = ({ onSuccess, onError }: ResultHandler<any>) => {
 		setIsPending(true);
 
 		try {
-			signInWithEmailAndPassword(auth, email, password);
+			const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-			onSuccess?.();
+			const snapshot = await get(child(ref(db), `users/${userCredential.user.uid}`));
+
+			onSuccess?.(snapshot.val());
 			setIsPending(false);
 		} catch (err) {
 			onError?.(err as Error);

@@ -7,8 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const SignUpPage = () => {
 	const { isPending, form: { register, handleSignUp, formState: { errors } } } = useSignUp({
-		onSuccess: (message) => {
-			toast.success(message);
+		onSuccess: (user) => {
+			toast.success(`Witaj ${user?.firstName}`);
 		},
 		onError: (err) => {
 			toast.error(`${err}`);
@@ -35,7 +35,6 @@ const SignUpPage = () => {
 				{errors.confirm?.message}<br />
 
 				<button>{isPending ? 'loading..' : 'submit'}</button>
-				<ToastContainer />
 			</form>
 			<Link href="/signin">Already have account? Sing In</Link>
 		</React.Fragment>

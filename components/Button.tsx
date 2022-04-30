@@ -1,18 +1,14 @@
 import React from 'react';
-import styled from '@emotion/styled';
+import * as styles from "./Button.css";
+
 
 interface ButtonProps {
 	children?: React.ReactNode;
-	color: string;
+	color?: styles.ColorType;
+	variant?: styles.ButtonVariant;
 }
 
-export const Button: React.FC<ButtonProps> = (props) => {
-	const Button = styled.button`
-		width: 100px;
-		height: 100px;	
-	`;
+export const Button: React.FC<ButtonProps> = ({ children, color = 'base', variant = 'primary' }) => {
 
-	return (
-		<Button />
-	);
+	return <button className={`${styles.variants[variant]} ${styles.colors[color]}`}>{children}</button>;
 };
