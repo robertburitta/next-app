@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@hookform/resolvers": "^2.8.8",
     "firebase": "^9.6.11",

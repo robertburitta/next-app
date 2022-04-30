@@ -23,7 +23,7 @@ export const useSignIn = ({ onSuccess, onError }: ResultHandler<any>) => {
 		try {
 			signInWithEmailAndPassword(auth, email, password);
 
-			onSuccess?.('Zalogowano');
+			onSuccess?.();
 			setIsPending(false);
 		} catch (err) {
 			onError?.(err as Error);

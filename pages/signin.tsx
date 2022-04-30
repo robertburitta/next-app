@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { Button } from '../components/Button';
 
 const SignInPage = () => {
 	const router = useRouter();
@@ -28,6 +29,7 @@ const SignInPage = () => {
 				Password: <input type='text' {...register('password')} />
 				{errors.password?.message}<br />
 
+				{/* <Button color="green" /> */}
 				<button>{isPending ? 'loading..' : 'submit'}</button>
 				<ToastContainer />
 			</form>
