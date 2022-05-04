@@ -1,20 +1,29 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import { theme } from "../styles/theme/theme.css";
 
-import { styleVariants } from '@vanilla-extract/css';
-
-const base = style({ padding: 12 });
-
-export const colors = styleVariants({
-	base: {},
-	white: { color: theme.colors.white }
+const base = style({
+	width: '100%',
+	height: '40px',
+	color: theme.colors.white,
+	outline: 'none',
+	border: `${theme.borders.xs} solid ${theme.colors.lightGray}`,
+	borderRadius: theme.borderRadius.xs,
+	cursor: 'pointer',
 });
 
 export const variants = styleVariants({
-	primary: [base, { background: 'blue' }],
-	secondary: [base, { background: 'aqua' }]
+	green: [base, {
+		background: theme.colors.green,
+		':hover': {
+			background: theme.colors.greenHover
+		}
+	}],
+	blue: [base, {
+		background: theme.colors.blue,
+		':hover': {
+			background: theme.colors.blueHover
+		}
+	}]
 });
 
-
 export type ButtonVariant = keyof typeof variants;
-export type ColorType = keyof typeof colors;

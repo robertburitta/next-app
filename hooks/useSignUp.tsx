@@ -8,12 +8,6 @@ import zod from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { User } from '../types/User';
 
-// interface Response<T> {
-// 	page: number;
-// 	version: string;
-// 	data: T;
-// }
-
 const SignUpSchema = zod.object({
 	firstName: zod.string().nonempty(),
 	lastName: zod.string().nonempty(),
@@ -37,17 +31,13 @@ export const useSignUp = ({ onSuccess, onError }: ResultHandler<User>) => {
 		try {
 			const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-			set(ref(db, `users/${userCredential.user.uid}`), {
-				firstName,
-				lastName,
-				email
-			});
-
 			const user = {
 				firstName,
 				lastName,
 				email
 			};
+
+			set(ref(db, `users/${userCredential.user.uid}`), user);
 
 			onSuccess?.(user);
 			setIsPending(false);

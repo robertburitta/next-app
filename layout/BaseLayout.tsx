@@ -1,10 +1,22 @@
 import React from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import Link from 'next/link';
+import { Container } from '../components/Container';
+import { Navbar } from '../components/Navbar';
+
 interface BaseLayoutProps { children: React.ReactNode; }
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
-	return <div><nav>nav</nav>{children}<ToastContainer /></div>;
+	return (
+		<React.Fragment>
+			<Navbar>
+				<Link href='/'>Next App</Link>
+			</Navbar>
+			<Container>
+				{children}
+				<footer>footer</footer>
+			</Container>
+		</React.Fragment>
+	);
 };
-
 
 export const getBaseLayout = (page: React.ReactNode) => <BaseLayout>{page}</BaseLayout>;

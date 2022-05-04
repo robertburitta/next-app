@@ -1,14 +1,17 @@
 import React from 'react';
 import { useSignUp } from '../hooks/useSignUp';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Link from 'next/link';
+import { PageWithLayout } from '../types/PageWithLayout';
+import { getAuthLayout } from '../layout/AuthLayout';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { Button } from '../components/Button';
 
-const SignUpPage = () => {
+const SignUpPage: PageWithLayout = () => {
 	const { isPending, form: { register, handleSignUp, formState: { errors } } } = useSignUp({
-		onSuccess: (user) => {
-			toast.success(`Witaj ${user?.firstName}`);
+		onSuccess: () => {
+			toast.success('Successfully signed up!');
 		},
 		onError: (err) => {
 			toast.error(`${err}`);
@@ -34,11 +37,13 @@ const SignUpPage = () => {
 				Confirm password: <input type='text' {...register('confirm')} />
 				{errors.confirm?.message}<br />
 
-				<button>{isPending ? 'loading..' : 'submit'}</button>
+				<Button>{isPending ? 'loading..' : 'submit'}</Button>
 			</form>
 			<Link href="/signin">Already have account? Sing In</Link>
 		</React.Fragment>
 	);
 };
+
+SignUpPage.getLayout = getAuthLayout;
 
 export default SignUpPage;

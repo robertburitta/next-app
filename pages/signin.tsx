@@ -2,18 +2,19 @@ import React from 'react';
 import { useSignIn } from '../hooks/useSignIn';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '../components/Button';
-import { PageWithLayout } from "../types/PageWithLayout";
-import { getBaseLayout } from "../layout/BaseLayout";
+import { PageWithLayout } from '../types/PageWithLayout';
+import { getAuthLayout } from '../layout/AuthLayout';
+import { Input } from '../components/Input';
+
 const SignInPage: PageWithLayout = () => {
 	const router = useRouter();
 
 	const { isPending, form: { register, handleSignIn, formState: { errors } } } = useSignIn({
 		onSuccess: (user) => {
-			toast(`Witaj ${user?.firstName}`, {
-				autoClose: 5000,
+			toast.success(`Witaj ${user?.firstName}`, {
 				onClose: () => {
 					router.push('/');
 				}
@@ -31,17 +32,16 @@ const SignInPage: PageWithLayout = () => {
 				Email: <input type='text' {...register('email')} />
 				{errors.email?.message}<br />
 
-				Password: <input type='text' {...register('password')} />
+				Password: <input type='password' {...register('password')} />
 				{errors.password?.message}<br />
 
-				<Button color="white" />
-				<button>{isPending ? 'loading..' : 'submit'}</button>
+				<Button>{isPending ? 'loading..' : 'submit'}</Button>
 			</form>
 			<Link href="/signup">Dont have an account? Sing Up</Link>
 		</React.Fragment>
 	);
 };
 
-SignInPage.getLayout = getBaseLayout;
+SignInPage.getLayout = getAuthLayout;
 
 export default SignInPage;
