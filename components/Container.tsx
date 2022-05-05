@@ -7,7 +7,7 @@ interface ContainerProps {
 	size?: styles.ContainerSizes;
 }
 
-export const Container: React.FC<ContainerProps> = ({ children, variant = 'normal', size = 'lg' }) => {
+export const Container: React.FC<ContainerProps> = ({ children, variant = 'normal', size = 'lg' }: ContainerProps) => {
 	return (
 		<div className={`${styles.variants[variant]} ${styles.sizes[size]}`}>
 			{children}

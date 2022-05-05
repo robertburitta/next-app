@@ -18,6 +18,9 @@ export const variants = styleVariants({
 });
 
 export const sizes = styleVariants({
+	xs: [base, {
+		width: '400px'
+	}],
 	sm: [base, {
 		width: '800px'
 	}],

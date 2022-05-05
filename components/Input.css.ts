@@ -1,7 +1,7 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import { theme } from "../styles/theme/theme.css";
 
-const base = style({
+export const inputStyle = style({
 	width: '100%',
 	padding: `${theme.paddings.md} ${theme.paddings.sm}`,
 	color: theme.colors.black,
@@ -13,8 +13,11 @@ const base = style({
 	}
 });
 
-export const variants = styleVariants({
-	primary: [base]
+export const labelStyle = style({
+	display: 'block',
+	marginBottom: theme.margins.xl
 });
 
-export type InputVariant = keyof typeof variants;
+export const errorStyle = style({
+	color: theme.colors.red
+});

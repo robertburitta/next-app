@@ -6,7 +6,7 @@ interface AuthLayoutProps { children: React.ReactNode; }
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
 	return (
-		<Container variant="center" size="sm">
+		<Container variant="center" size="xs">
 			{children}
 			<ToastContainer />
 		</Container>

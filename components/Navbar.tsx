@@ -6,7 +6,7 @@ interface NavbarProps {
 	variant?: styles.ButtonVariant;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ children, variant = 'primary' }) => {
+export const Navbar: React.FC<NavbarProps> = ({ children, variant = 'primary' }: NavbarProps) => {
 	return (
 		<nav className={`${styles.variants[variant]}`}>
 			{children}

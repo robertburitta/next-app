@@ -4,6 +4,7 @@ import { theme } from "../styles/theme/theme.css";
 const base = style({
 	width: '100%',
 	height: '40px',
+	marginBottom: theme.margins.xs,
 	color: theme.colors.white,
 	outline: 'none',
 	border: `${theme.borders.xs} solid ${theme.colors.lightGray}`,
