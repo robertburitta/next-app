@@ -26,7 +26,7 @@ export const useSignIn = ({ onSuccess, onError }: ResultHandler<User>) => {
 			const userCredential = await signInWithEmailAndPassword(auth, email, password);
 			const snapshot = await get(child(ref(db), `users/${userCredential.user.uid}`));
 
-			onSuccess?.(snapshot.val());
+			onSuccess?.(snapshot.val() as User);
 			setIsPending(false);
 		} catch (err) {
 			onError?.(err as Error);

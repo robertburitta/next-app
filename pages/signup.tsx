@@ -6,13 +6,22 @@ import { PageWithLayout } from '../types/PageWithLayout';
 import { getAuthLayout } from '../layout/AuthLayout';
 import { Button } from '../components/Button';
 import FormInput from '../components/Input';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../store/userSlice';
+import { useRouter } from 'next/router';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 const SignUpPage: PageWithLayout = () => {
+	const dispatch = useDispatch();
+	const router = useRouter();
+
 	const { isPending, form: { register, handleSignUp, formState: { errors } } } = useSignUp({
-		onSuccess: () => {
-			toast.success('Successfully signed up!');
+		onSuccess: (user) => {
+			toast.success('Successfully signed up!', { onClose: () => router.push('/') });
+			if (user) {
+				dispatch(userActions.loginUser(user));
+			}
 		},
 		onError: (err) => {
 			toast.error(`${err}`);

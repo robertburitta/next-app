@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { useForm } from 'react-hook-form';
 import { auth, db } from '../config/firebase';
 import { ref, set } from 'firebase/database';
 import { ResultHandler } from '../types/ResultHandler';
 import zod from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { User } from '../types/User';
+import { User, UserStatus } from '../types/User';
 
 const SignUpSchema = zod.object({
 	firstName: zod.string().nonempty(),
@@ -34,9 +34,13 @@ export const useSignUp = ({ onSuccess, onError }: ResultHandler<User>) => {
 			const user = {
 				firstName,
 				lastName,
-				email
+				email,
+				isAdmin: false,
+				status: UserStatus.USER,
+				id: userCredential.user.uid
 			};
 
+			await signInWithEmailAndPassword(auth, email, password);
 			set(ref(db, `users/${userCredential.user.uid}`), user);
 
 			onSuccess?.(user);

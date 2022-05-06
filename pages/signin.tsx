@@ -7,11 +7,14 @@ import { Button } from '../components/Button';
 import { PageWithLayout } from '../types/PageWithLayout';
 import { getAuthLayout } from '../layout/AuthLayout';
 import FormInput from '../components/Input';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../store/userSlice';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 const SignInPage: PageWithLayout = () => {
 	const router = useRouter();
+	const dispatch = useDispatch();
 
 	const { isPending, form: { register, handleSignIn, formState: { errors } } } = useSignIn({
 		onSuccess: (user) => {
@@ -20,6 +23,9 @@ const SignInPage: PageWithLayout = () => {
 					router.push('/');
 				}
 			});
+			if (user) {
+				dispatch(userActions.loginUser(user));
+			}
 		},
 		onError: (err) => {
 			toast.error(`${err}`);

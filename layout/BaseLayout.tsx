@@ -11,7 +11,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
 			<Navbar>
 				<Link href='/'>Next App</Link>
 			</Navbar>
-			<Container>
+			<Container size='sm'>
 				{children}
 				<footer>footer</footer>
 			</Container>
