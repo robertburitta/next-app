@@ -10,8 +10,6 @@ import { useDispatch } from 'react-redux';
 import { userActions } from '../store/userSlice';
 import { useRouter } from 'next/router';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 const SignUpPage: PageWithLayout = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();

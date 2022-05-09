@@ -10,8 +10,6 @@ import FormInput from '../components/Input';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../store/userSlice';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 const SignInPage: PageWithLayout = () => {
 	const router = useRouter();
 	const dispatch = useDispatch();

@@ -7,5 +7,6 @@ export const colors = {
 	greenHover: '#45A049',
 	blue: '#4C7DAF',
 	blueHover: '#1D4F83',
-	red: '#FF2F19'
+	red: '#FF2F19',
+	redHover: '#BE2C1D'
 };

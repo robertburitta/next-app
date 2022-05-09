@@ -1,22 +1,20 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import React from 'react';
 import { useUsers } from '../hooks/useUsers';
-import { RootState } from '../store';
+import { PageWithLayout } from '../types/PageWithLayout';
+import { getAdminLayout } from '../layout/AdminLayout';
+import { UsersList } from '../components/UsersList';
 
-const AdminPage = () => {
-	const { users, handleBanUser } = useUsers();
-	const router = useRouter();
-	const isAdmin = useSelector((store: RootState) => store.user?.isAdmin);
-
-	useEffect(() => {
-		// checks if the user is authenticated
-		isAdmin ? router.push('/') : router.push('/signin');
-	}, []);
+const AdminPage: PageWithLayout = () => {
+	const { users, handleBanUser, handleUnbanUser } = useUsers();
 
 	return (
-		<div>{users.map(u => <li key={u.id}>{u.email}<button onClick={() => handleBanUser(u.id)}></button></li>)}</div>
+		<React.Fragment>
+			<h2>Users list</h2>
+			<UsersList users={users} handleBanUser={handleBanUser} handleUnbanUser={handleUnbanUser} />
+		</React.Fragment>
 	);
 };
+
+AdminPage.getLayout = getAdminLayout;
 
 export default AdminPage;

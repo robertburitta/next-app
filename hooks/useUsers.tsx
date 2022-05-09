@@ -26,7 +26,15 @@ export const useUsers = () => {
 		try {
 			const dbRef = ref(db, 'users/' + id);
 			await update(dbRef, { status: UserStatus.BANNED });
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
+	const handleUnbanUser = async (id: string) => {
+		try {
+			const dbRef = ref(db, 'users/' + id);
+			await update(dbRef, { status: UserStatus.USER });
 		} catch (err) {
 			console.error(err);
 		}
@@ -36,5 +44,5 @@ export const useUsers = () => {
 		getUsers();
 	}, []);
 
-	return { users, getUsers, handleBanUser };
+	return { users, getUsers, handleBanUser, handleUnbanUser };
 };

@@ -5,11 +5,12 @@ interface ButtonProps {
 	children?: React.ReactNode;
 	variant?: styles.ButtonVariant;
 	isPending?: boolean;
+	onClick?: () => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, variant = 'green', isPending = false }: ButtonProps) => {
+export const Button: React.FC<ButtonProps> = ({ children, variant = 'green', isPending = false, onClick }) => {
 	return (
-		<button className={`${styles.variants[variant]}`}>
+		<button className={`${styles.variants[variant]}`} onClick={onClick}>
 			{isPending ? 'Loading...' : children}
 		</button>
 	);

@@ -24,6 +24,12 @@ export const variants = styleVariants({
 		':hover': {
 			background: theme.colors.blueHover
 		}
+	}],
+	ban: [base, {
+		background: theme.colors.red,
+		':hover': {
+			background: theme.colors.redHover
+		}
 	}]
 });
 

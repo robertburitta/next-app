@@ -8,6 +8,8 @@ globalStyle('html, body', {
 });
 
 globalStyle('a', {
+	margin: theme.margins.xs,
+	padding: theme.paddings.sm,
 	color: theme.colors.blue,
 	textDecoration: 'none',
 });
