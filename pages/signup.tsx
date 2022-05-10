@@ -16,7 +16,9 @@ const SignUpPage: PageWithLayout = () => {
 
 	const { isPending, form: { register, handleSignUp, formState: { errors } } } = useSignUp({
 		onSuccess: (user) => {
-			toast.success('Successfully signed up!', { onClose: () => router.push('/') });
+			toast.success('Successfully signed up!');
+			router.push('/');
+
 			if (user) {
 				dispatch(userActions.loginUser(user));
 			}

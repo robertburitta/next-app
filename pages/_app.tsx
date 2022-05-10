@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		<Provider store={store}>
 			<div className={themeClass}>
 				{getLayout(< Component {...pageProps} />)}
-				<ToastContainer />
+				<ToastContainer autoClose={2000} />
 			</div>
 		</Provider>
 	);

@@ -13,7 +13,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
 	useEffect(() => {
 		isAdmin ? router.push('/admin') : router.push('/signin');
-	}, [isAdmin, router]);
+	}, []);
 
 	return (
 		<React.Fragment>

@@ -1,9 +1,10 @@
-import { useEffect, useState, } from 'react';
-import { ref, get, update } from 'firebase/database';
+import { useEffect, useState } from 'react';
+import { ref, get, update, onValue } from 'firebase/database';
 import { db } from '../config/firebase';
 import { User, UserStatus } from '../types/User';
+import { ResultHandler } from '../types/ResultHandler';
 
-export const useUsers = () => {
+export const useUsers = ({ onSuccess, onError }: ResultHandler<string>) => {
 	const [users, setUsers] = useState<User[]>([]);
 
 	const getUsers = async () => {
@@ -22,21 +23,29 @@ export const useUsers = () => {
 		}
 	};
 
-	const handleBanUser = async (id: string) => {
+	const handleBanUser = async (user: User) => {
 		try {
-			const dbRef = ref(db, 'users/' + id);
-			await update(dbRef, { status: UserStatus.BANNED });
+			const dbRef = ref(db, 'users/' + user.id);
+
+			await update(dbRef, { status: UserStatus.BANNED }).then(() => {
+				onSuccess?.(`Banned user ${user.email}`);
+				getUsers();
+			});
 		} catch (err) {
-			console.error(err);
+			onError?.(err as Error);
 		}
 	};
 
-	const handleUnbanUser = async (id: string) => {
+	const handleUnbanUser = async (user: User) => {
 		try {
-			const dbRef = ref(db, 'users/' + id);
-			await update(dbRef, { status: UserStatus.USER });
+			const dbRef = ref(db, 'users/' + user.id);
+
+			await update(dbRef, { status: UserStatus.USER }).then(() => {
+				onSuccess?.(`Unbanned user ${user.email}`);
+				getUsers();
+			});
 		} catch (err) {
-			console.error(err);
+			onError?.(err as Error);
 		}
 	};
 

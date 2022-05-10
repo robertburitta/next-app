@@ -3,9 +3,17 @@ import { useUsers } from '../hooks/useUsers';
 import { PageWithLayout } from '../types/PageWithLayout';
 import { getAdminLayout } from '../layout/AdminLayout';
 import { UsersList } from '../components/UsersList';
+import { toast } from 'react-toastify';
 
 const AdminPage: PageWithLayout = () => {
-	const { users, handleBanUser, handleUnbanUser } = useUsers();
+	const { users, handleBanUser, handleUnbanUser } = useUsers({
+		onSuccess: (msg) => {
+			toast.success(msg);
+		},
+		onError: (err) => {
+			toast.error(`${err}`);
+		}
+	});
 
 	return (
 		<React.Fragment>

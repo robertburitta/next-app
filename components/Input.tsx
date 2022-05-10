@@ -8,7 +8,6 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ error, ...props }, ref) => {
 	const { name, placeholder } = props;
-	console.log(error);
 
 	return (
 		<label htmlFor={name} className={labelStyle}>

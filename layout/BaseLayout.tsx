@@ -14,7 +14,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
 
 	useEffect(() => {
 		isLoggedIn ? router.push('/') : router.push('/signin');
-	}, [isLoggedIn, router]);
+	}, []);
 
 	return (
 		<React.Fragment>

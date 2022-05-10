@@ -1,16 +1,17 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import { theme } from "../styles/theme/theme.css";
 
-export const list = style({
-	margin: theme.margins.sm,
-	listStyleType: 'decimal'
+export const tableStyle = style({
+	textAlign: 'left',
+	borderCollapse: 'collapse'
 });
 
-export const listItem = style({
-	margin: theme.margins.sm
+export const tableRow = style({
+	':hover': {
+		backgroundColor: theme.colors.lightGray
+	}
 });
 
-export const paragraph = style({
-	display: 'inline-block',
-	margin: 0
+export const tableCol = style({
+	padding: theme.paddings.xs
 });
