@@ -6,7 +6,7 @@ import { UsersList } from '../components/UsersList';
 import { toast } from 'react-toastify';
 
 const AdminPage: PageWithLayout = () => {
-	const { users, handleBanUser, handleUnbanUser } = useUsers({
+	const { users, handleBanUser, handleUnbanUser, getUsers } = useUsers({
 		onSuccess: (msg) => {
 			toast.success(msg);
 		},

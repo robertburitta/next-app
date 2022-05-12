@@ -17,7 +17,7 @@ export const UsersDropdown: React.FC<UsersDropdownProps> = ({ user, handleBanUse
 				<HamburgerMenuIcon />
 			</DropdownMenu.Trigger>
 
-			<DropdownMenu.Content className={contentStyle} portalled={false}>
+			<DropdownMenu.Content className={contentStyle}>
 				<DropdownMenu.Item className={itemStyle} onSelect={() => handleBanUser(user)} disabled={user.status === UserStatus.BANNED}>
 					Ban user
 				</DropdownMenu.Item>
