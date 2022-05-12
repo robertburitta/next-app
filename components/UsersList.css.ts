@@ -1,4 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import { theme } from "../styles/theme/theme.css";
 
 export const tableStyle = style({

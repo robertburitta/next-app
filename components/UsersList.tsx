@@ -1,5 +1,6 @@
 import React from 'react';
-import { User, UserStatus } from '../types/User';
+import { User } from '../types/User';
+import { UsersDropdown } from './UsersDropdown';
 import { tableStyle, tableRow, tableCol } from './UsersList.css';
 
 interface UsersListProps {
@@ -8,7 +9,7 @@ interface UsersListProps {
 	handleUnbanUser: (user: User) => void;
 }
 
-export const UsersList: React.FC<UsersListProps> = ({ users, handleBanUser, handleUnbanUser }) => {
+export const UsersList: React.FC<UsersListProps> = ({ users, ...props }) => {
 	return (
 		<table className={tableStyle}>
 			<thead>
@@ -17,6 +18,7 @@ export const UsersList: React.FC<UsersListProps> = ({ users, handleBanUser, hand
 					<th>Email</th>
 					<th>First name</th>
 					<th>Last name</th>
+					<th>Status</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -27,10 +29,9 @@ export const UsersList: React.FC<UsersListProps> = ({ users, handleBanUser, hand
 						<td className={tableCol}>{u.email}</td>
 						<td className={tableCol}>{u.firstName}</td>
 						<td className={tableCol}>{u.lastName}</td>
+						<td className={tableCol}>{u.status}</td>
 						<td className={tableCol}>
-							<button onClick={() => u.status === UserStatus.USER ? handleBanUser(u) : handleUnbanUser(u)}>
-								{u.status === UserStatus.USER ? 'Ban user' : 'Unban user'}
-							</button>
+							<UsersDropdown user={u} {...props} />
 						</td>
 					</tr>
 				))}
