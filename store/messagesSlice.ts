@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from "../store";
-import { MessageType } from "../hooks/useMessages";
+import { MessageType } from '../hooks/useMessages';
 
 interface InitialStateType {
 	messages: MessageType[];

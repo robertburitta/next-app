@@ -1,9 +1,7 @@
 export const Routes = {
 	HOME: '/',
-	ABOUT: '/about',
+	SIGNIN: '/signin',
+	SIGNUP: '/signup',
+	ADMIN: '/admin',
 	POST: (id: number) => '/post/' + id
 };
-
-
-
-Routes.POST(2);

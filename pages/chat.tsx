@@ -5,11 +5,14 @@ import { useMessages } from "../hooks/useMessages";
 
 const Chat: PageWithLayout = () => {
 	const { rooms: { handleCreateRoom }, messages: { handleSendMessage, register, setValue } } = useMessages();
+
 	return (
-		<div>Char</div>
+		<div>Chat</div>
 	);
 };
+
 Chat.getLayout = getBaseLayout;
+
 export default Chat;
 
 // getStaticProps getServerSideProps

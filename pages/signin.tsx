@@ -9,6 +9,7 @@ import { getAuthLayout } from '../layout/AuthLayout';
 import FormInput from '../components/Input';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../store/userSlice';
+import { Routes } from '../router/Routes';
 
 const SignInPage: PageWithLayout = () => {
 	const router = useRouter();
@@ -36,7 +37,7 @@ const SignInPage: PageWithLayout = () => {
 				<FormInput type='password' placeholder="Password" {...register('password')} error={errors.password?.message} />
 				<Button isPending={isPending}>Submit</Button>
 			</form>
-			<Link href="/signup">Dont have an account? Sing Up</Link>
+			<Link href={Routes.SIGNUP}>Dont have an account? Sing Up</Link>
 		</React.Fragment>
 	);
 };

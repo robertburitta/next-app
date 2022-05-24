@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ref, get, update, onValue } from 'firebase/database';
+import { ref, get, update } from 'firebase/database';
 import { db } from '../config/firebase';
 import { User, UserStatus } from '../types/User';
 import { ResultHandler } from '../types/ResultHandler';

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { Container } from '../components/Container';
 import { Navbar } from '../components/Navbar';
+import { Routes } from '../router/Routes';
 
 interface BaseLayoutProps { children: React.ReactNode; }
 
@@ -19,7 +20,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
 	return (
 		<React.Fragment>
 			<Navbar>
-				{isAdmin && <Link href='/admin'>Admin panel</Link>}
+				{isAdmin && <Link href={Routes.ADMIN}>Admin panel</Link>}
 			</Navbar>
 			<Container size='sm'>
 				{children}

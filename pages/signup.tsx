@@ -9,6 +9,7 @@ import FormInput from '../components/Input';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../store/userSlice';
 import { useRouter } from 'next/router';
+import { Routes } from '../router/Routes';
 
 const SignUpPage: PageWithLayout = () => {
 	const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const SignUpPage: PageWithLayout = () => {
 				<FormInput type='password' placeholder="Confirm password" {...register('confirm')} error={errors.confirm?.message} />
 				<Button isPending={isPending}>Submit</Button>
 			</form>
-			<Link href="/signin">Already have account? Sing In</Link>
+			<Link href={Routes.SIGNIN}>Already have account? Sing In</Link>
 		</React.Fragment>
 	);
 };
