@@ -6,7 +6,8 @@ const store = configureStore({
 	reducer: {
 		[userSlice.name]: userSlice.reducer,
 		[messagesSlice.name]: messagesSlice.reducer,
-	}
+	},
+	devTools: true
 });
 
 export type RootState = ReturnType<typeof store.getState>;

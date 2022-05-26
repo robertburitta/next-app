@@ -12,7 +12,7 @@ interface UsersDropdownProps {
 
 export const UsersDropdown: React.FC<UsersDropdownProps> = ({ user, handleBanUser, handleUnbanUser }) => {
 	return (
-		<DropdownMenu.Root>
+		<DropdownMenu.Root modal={false}>
 			<DropdownMenu.Trigger className={buttonStyle}>
 				<HamburgerMenuIcon />
 			</DropdownMenu.Trigger>

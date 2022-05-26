@@ -20,6 +20,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
 	return (
 		<React.Fragment>
 			<Navbar>
+				<Link href={Routes.CHAT}>Chat</Link>
 				{isAdmin && <Link href={Routes.ADMIN}>Admin panel</Link>}
 			</Navbar>
 			<Container size='sm'>

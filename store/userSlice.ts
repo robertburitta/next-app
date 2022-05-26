@@ -22,7 +22,7 @@ const userSlice = createSlice({
 			state.isAdmin = action.payload.isAdmin;
 			state.isLoggedIn = true;
 		},
-		logoutUser: (state: InitialStateType, action: PayloadAction<User>) => {
+		logoutUser: (state: InitialStateType) => {
 			state.user = null;
 			state.isAdmin = false;
 			state.isLoggedIn = false;
