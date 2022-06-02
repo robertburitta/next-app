@@ -1,38 +1,46 @@
 import React from 'react';
-import { PageWithLayout } from "../types/PageWithLayout";
-import { getBaseLayout } from "../layout/BaseLayout";
-import { useMessages } from "../hooks/useMessages";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { PageWithLayout } from '../types/PageWithLayout';
+import { getBaseLayout } from '../layout/BaseLayout';
+import { MessageType, useMessages } from '../hooks/useMessages';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+
+export type RoomType = {
+	id: string;
+	messages: MessageType[];
+};
+
 const Chat: PageWithLayout = () => {
 	const rooms = useSelector((state: RootState) => state.messages.rooms);
+	const { rooms: { handleCreateRoom }, messages: { handleSendMessage, register } } = useMessages();
 
-	const { rooms: { handleCreateRoom }, messages: { handleSendMessage, register, setValue } } = useMessages();
-	console.log(rooms);
-	return (<>
+	return (
+		<>
+			<button onClick={handleCreateRoom}>add room</button>
 
-		<button onClick={handleCreateRoom}>add room</button>
+			<form onSubmit={handleSendMessage}>
+				Author: <input {...register('author')} /><br />
+				Text: <input type='text' {...register('text')} /><br />
+				Room: <input {...register('roomId')} /><br />
+				<input type='submit' />
+			</form>
 
-		<form onSubmit={handleSendMessage}>
-			<input {...register('author')} />
-			<input type="text" {...register('text')} />
-			<input {...register('roomId')} />
-			<input type="submit" />
-		</form>
-
-		<div>{rooms?.map(room => <div key={room.id}>{room.id} <ul>
-			{room.messages?.map((message, i) => <li key={i}>{message?.text}</li>)}
-		</ul></div>)}</div>
-
-
-	</>
-
+			<div>
+				{rooms?.map((room: RoomType) =>
+					<div key={room?.id}>
+						{room.id}
+						<ul>
+							{room.messages?.map((message: MessageType, i) =>
+								<li key={i}>{message?.text}</li>
+							)}
+						</ul>
+					</div>
+				)}
+			</div>
+		</>
 	);
 };
 
 Chat.getLayout = getBaseLayout;
 
 export default Chat;
-
-// getStaticProps getServerSideProps
-// useSWR
