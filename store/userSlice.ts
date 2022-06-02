@@ -10,7 +10,7 @@ interface InitialStateType {
 const initialState = {
 	isAdmin: false,
 	isLoggedIn: false,
-	user: null
+	user: {} as User
 };
 
 const userSlice = createSlice({
