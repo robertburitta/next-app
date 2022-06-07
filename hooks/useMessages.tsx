@@ -6,12 +6,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { v4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { messagesActions } from '../store/messagesSlice';
-import { RoomType } from "../types/RoomType";
+import { RoomType } from '../types/RoomType';
 import { MessageType } from '../types/MessageType';
+
 const MessageSchema = z.object({
 	text: z.string().nonempty(),
 	author: z.string().nonempty(),
-	roomId: z.string().nonempty(),
+	roomId: z.string().nonempty()
 });
 
 export type MessageSchemaType = z.infer<typeof MessageSchema>;
@@ -54,11 +55,19 @@ export const useMessages = () => {
 		}
 	};
 
+	const handleRemoveMessage = async (id: string) => {
+		try {
+			// await getMessages(roomId);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	const getRooms = async () => {
 		try {
 			const snapshot = await get(child(ref(db), 'rooms'));
 			const rooms: RoomType[] = Object.values(snapshot.val());
-			console.log(rooms);
+
 			dispatch(messagesActions.saveRooms(rooms));
 		} catch (err) {
 			console.error(err);
@@ -88,6 +97,7 @@ export const useMessages = () => {
 			...form
 		},
 		rooms: {
+			handleRemoveMessage,
 			handleCreateRoom,
 			getRooms
 		}
