@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { db } from '../config/firebase';
-import { ref, set, get, child } from 'firebase/database';
+import { ref, set, get, child, remove } from 'firebase/database';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { v4 } from 'uuid';
@@ -24,7 +24,7 @@ export const useMessages = () => {
 	const getMessages = async (roomId: string) => {
 		try {
 			const snapshot = await get(child(ref(db), 'rooms/' + roomId));
-			const messages: MessageType[] = Object.values(snapshot.val()?.messages);
+			const messages: MessageType[] = snapshot.val().messages ? Object.values(snapshot.val()?.messages) : [];
 			const name = snapshot.val().name;
 
 			const room = {
@@ -42,9 +42,10 @@ export const useMessages = () => {
 	const handleSendMessage = async ({ roomId, author, text }: MessageType) => {
 		try {
 			const message = {
-				author,
-				text,
 				id: v4(),
+				text,
+				author,
+				roomId,
 				timestamp: Date.now()
 			};
 
@@ -55,9 +56,27 @@ export const useMessages = () => {
 		}
 	};
 
-	const handleRemoveMessage = async (id: string) => {
+	const handleRemoveMessage = async (roomId: string, id: string) => {
 		try {
-			// await getMessages(roomId);
+			await remove(ref(db, 'rooms/' + roomId + '/messages/' + id));
+			await getMessages(roomId);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleRemoveAllMessages = async (roomId: string, author: string) => {
+		try {
+			const snapshot = await get(child(ref(db), 'rooms/' + roomId));
+			const messages: MessageType[] = snapshot.val().messages ? Object.values(snapshot.val()?.messages) : [];
+
+			messages.forEach(async (message) => {
+				if (message.author === author) {
+					await remove(ref(db, 'rooms/' + roomId + '/messages/' + message.id));
+				}
+			});
+
+			await getMessages(roomId);
 		} catch (err) {
 			console.error(err);
 		}
@@ -66,13 +85,14 @@ export const useMessages = () => {
 	const getRooms = async () => {
 		try {
 			const snapshot = await get(child(ref(db), 'rooms'));
-			const rooms: RoomType[] = Object.values(snapshot.val());
+			const rooms: RoomType[] = snapshot.val() ? Object.values(snapshot.val()) : [];
 
 			dispatch(messagesActions.saveRooms(rooms));
 		} catch (err) {
 			console.error(err);
 		}
 	};
+
 	const handleCreateRoom = async (name: string) => {
 		try {
 			const roomId = v4();
@@ -94,10 +114,11 @@ export const useMessages = () => {
 	return {
 		messages: {
 			handleSendMessage: handleSubmit(handleSendMessage),
+			handleRemoveMessage,
+			handleRemoveAllMessages,
 			...form
 		},
 		rooms: {
-			handleRemoveMessage,
 			handleCreateRoom,
 			getRooms
 		}

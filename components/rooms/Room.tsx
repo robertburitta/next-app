@@ -6,6 +6,7 @@ import { MessageType } from '../../types/MessageType';
 import FormInput from '../Input';
 import { Button } from '../Button';
 import * as styles from './Room.css';
+import { Message } from './Message';
 
 interface RoomProps {
 	id: string;
@@ -19,7 +20,7 @@ export const Room: React.FC<RoomProps> = ({ id, messages, name }) => {
 
 	useEffect(() => {
 		setValue('roomId', id);
-		setValue('author', user?.firstName);
+		setValue('author', user?.email);
 	}, []);
 
 	return (
@@ -27,7 +28,9 @@ export const Room: React.FC<RoomProps> = ({ id, messages, name }) => {
 			<strong>Room name: {name}</strong>
 			<ul className={styles.list}>
 				{messages && Object.values(messages)?.sort((a, b) => a.timestamp - b.timestamp).map((message, i) =>
-					<li key={i}><span className={styles.author}>{message.author}</span>: {message.text}</li>
+					<Message key={i} roomId={id} messageId={message.id} author={message.author}>
+						<li className={styles.message}><span className={styles.author}>{message.author}</span>: {message.text}</li>
+					</Message>
 				)}
 			</ul>
 			<form onSubmit={handleSendMessage}>

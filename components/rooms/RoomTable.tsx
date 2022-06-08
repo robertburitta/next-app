@@ -14,8 +14,6 @@ export const RoomTable = () => {
 
 	useEffect(() => {
 		getRooms();
-		// console.log(rooms);
-		// console.log(rooms[0]?.roomId);
 		setOpenTab(rooms[0]?.roomId);
 	}, []);
 
