@@ -21,3 +21,27 @@ export const message = style({
 	borderRadius: theme.borderRadius.lg,
 	cursor: 'pointer'
 });
+
+export const sendMessage = style({
+	display: 'flex',
+	alignItems: 'flex-start'
+});
+
+export const input = style({
+	marginBottom: 0
+});
+
+export const button = style({
+	width: '44px',
+	height: 'auto',
+	marginLeft: theme.margins.md,
+	marginBottom: theme.margins.xl,
+	padding: '10px',
+	color: theme.colors.black,
+	backgroundColor: 'lightblue',
+	borderRadius: theme.borderRadius.lg,
+	cursor: 'pointer',
+	':hover': {
+		backgroundColor: '#6db4cb',
+	}
+});

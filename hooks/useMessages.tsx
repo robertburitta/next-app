@@ -19,7 +19,7 @@ export type MessageSchemaType = z.infer<typeof MessageSchema>;
 
 export const useMessages = () => {
 	const dispatch = useDispatch();
-	const { handleSubmit, ...form } = useForm<MessageType>({ resolver: zodResolver(MessageSchema) });
+	const { handleSubmit, setValue, ...form } = useForm<MessageType>({ resolver: zodResolver(MessageSchema) });
 
 	const getMessages = async (roomId: string) => {
 		try {
@@ -51,6 +51,7 @@ export const useMessages = () => {
 
 			await set(ref(db, 'rooms/' + roomId + '/messages/' + message.id), message);
 			await getMessages(roomId);
+			setValue('text', '');
 		} catch (err) {
 			console.error(err);
 		}
@@ -116,6 +117,7 @@ export const useMessages = () => {
 			handleSendMessage: handleSubmit(handleSendMessage),
 			handleRemoveMessage,
 			handleRemoveAllMessages,
+			setValue,
 			...form
 		},
 		rooms: {

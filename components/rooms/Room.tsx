@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { MessageType } from '../../types/MessageType';
 import FormInput from '../Input';
-import { Button } from '../Button';
 import * as styles from './Room.css';
 import { Message } from './Message';
+import { PaperPlaneIcon } from '@radix-ui/react-icons';
 
 interface RoomProps {
 	id: string;
@@ -33,10 +33,10 @@ export const Room: React.FC<RoomProps> = ({ id, messages, name }) => {
 					</Message>
 				)}
 			</ul>
-			<form onSubmit={handleSendMessage}>
-				<FormInput type='text' {...register('text')} error={errors.text?.message} />
-				<Button variant='blue'>Send message</Button>
-			</form>
+			<div className={styles.sendMessage}>
+				<FormInput type='text' {...register('text')} placeholder='Enter message...' error={errors.text?.message} rounded />
+				<PaperPlaneIcon className={styles.button} onClick={handleSendMessage} />
+			</div>
 		</>
 	);
 };
