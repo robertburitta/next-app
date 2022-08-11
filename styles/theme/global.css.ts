@@ -21,3 +21,9 @@ globalStyle('a:hover', {
 globalStyle('*', {
 	boxSizing: 'border-box'
 });
+
+globalStyle(':root', {
+	vars: {
+		'--space-base': '0.25rem'
+	}
+});

@@ -1,0 +1,1 @@
+export const space = (spacing: number) => `calc(var(--space-base) * ${spacing})`;
